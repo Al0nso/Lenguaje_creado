@@ -24,7 +24,11 @@
               (with (for/list ([i bindings]) (binding (binding-id i)(subst (binding-value i) sud-id value))) body)
               (with (for/list ([i bindings]) (binding (binding-id i)(subst (binding-value i) sud-id value))) (subst body sud-id value)))]
     [with* (bindings body)
+<<<<<<< HEAD
           (parse (interp expr))]))
+=======
+          (error "Azucar sintactica")]))
+>>>>>>> 4357847e88fead50f365f0b28023c59e1b3af046
 
 ;;Función auxiliar para comprobar que el id no se encuentre la lista de id's del with
 ;;list symbol -> bool
@@ -52,4 +56,8 @@
       (with (list (first bi)) (transf-with (cdr bi) bo) )) )
 
 (define (prueba e)
+<<<<<<< HEAD
   (interp (parse e)))
+=======
+  (interp (parse e)))
+>>>>>>> 4357847e88fead50f365f0b28023c59e1b3af046
