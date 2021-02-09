@@ -34,11 +34,11 @@
     [fun (params body) (closure params  body ds)]
     [app (fun args) (cond
                       [(id? fun) (let ([i (lookup (id-i fun) ds)])
-                                          (interp (closure-body i) (agrega_argumentos (closure-param i) args (closure-env i))))]
-                      [else (interp (fun-body fun) (agrega_argumentos (fun-params fun) args ds))])]
+                                          (interp (closure-body i) (agrega_argumentos (closure-param i) (for/list ([ j args]) (interp j (closure-env i))) (closure-env i))))]
+                      [else (interp (fun-body fun) (agrega_argumentos (fun-params fun) (for/list ([ j args]) (interp j ds)) ds))])]
     [with* (bindings body) (error "Azucar sintactica")]))
 
 (define (agrega_argumentos params args ds)
   (cond
-    [(equal? (length params) 1) (aSub (first params)  (interp  (first args) ds) ds)]
-    [else (agrega_argumentos (cdr params) (cdr args) (aSub (first params) (interp  (first args) ds) ds))]))
+    [(equal? (length params) 1) (aSub (first params)  (first args) ds)]
+    [else (agrega_argumentos (cdr params) (cdr args) (aSub (first params) (first args) ds))]))
